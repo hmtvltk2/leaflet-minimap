@@ -39,3 +39,81 @@ body,
   margin: 0 0 5px;
   color: #777;
 }
+.map-control {
+  padding: 4px;
+  margin-bottom: 100px;
+  
+}
+
+.map-options {
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around ;
+  position: absolute;
+  top: 64px;
+  right: 1150px;
+  padding: 5px;
+  margin-top: 558px; 
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;  
+  height: 90px ;
+  width: 250px;
+  border-radius:10px;
+}
+
+.map-options button {
+  display: block;
+  width: 60px;
+  height:60px;
+
+  &:hover{
+    color: blue;
+  }
+}
+.nameMap{
+  color: black;
+  font-weight: bolder;
+  &:hover{
+    color: cadetblue; 
+  }
+ 
+}
+.option{
+  width: 70px;
+  margin-left: 10px ;
+  
+}
+
+.SelectOption{
+  background-image: url('images/MapOption.png');
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  border-color: black;
+  color:white;
+  height: 90px;
+  width: 86px;
+  font-size: 12px;
+  border:3px solid black;
+  border-radius:10px;
+  font-weight: bolder;
+}
+#tphcmMap{
+  border-radius:10px;
+  background-image: url('https://cdn.thuvienphapluat.vn/uploads/tintuc/2023/12/30/ban-do-hanh-chinh-tphcm.jpg');
+  &:hover {
+    border:3px solid black;
+  }
+  
+}
+
+#openStreetMap{
+  border-radius:10px;
+  background-image: url('images/chonMap.png');
+  &:hover {
+    border:3px solid black;
+  }
+  
+}

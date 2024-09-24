@@ -19,11 +19,7 @@ var baselayers = {
 
 };
 
-var layersControl = L.control.layers.minimap(baselayers, {}, {
-  collapsed: false,
-  position: 'bottomleft'
 
-}).addTo(map);
 
 var filter = function () {
   var hash = window.location.hash;
@@ -39,4 +35,63 @@ baselayers.OpenStreetMap.addTo(map);
 L.DomEvent.on(window, 'hashchange', filter);
 filter();
 
+var mapControl = L.control({
+  collapsed: false,
+  position: 'bottomleft' });
+
+mapControl.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'map-control');
+    div.innerHTML = '<button id="toggleMap" class= "SelectOption">Lớp bản đồ</button>';
+    return div;
+};
+
+mapControl.addTo(map);
+
+var mapOptionsVisible = false;
+
+document.getElementById('toggleMap').addEventListener('mouseover', function() {
+    
+    if (!mapOptionsVisible) {
+        var optionsDiv = L.DomUtil.create('div', 'map-options');
+        optionsDiv.innerHTML = `
+            <div class = "option" >
+            <button id="openStreetMap"></button>
+            <label for="openStreetMap" class= "nameMap">Open Street Map</label>
+            </div>
+             <div class = "option">
+            <button id="tphcmMap"></button>
+            <label for="tphcmMap" class= "nameMap">Bản đồ nền TPHCM</label>
+            </div>
+            
+        `;
+        map.getContainer().appendChild(optionsDiv);
+        mapOptionsVisible = true;
+
+        document.getElementById('openStreetMap').addEventListener('click', function() {
+            baselayers.OpenStreetMap.addTo(map);
+            map.removeLayer(baselayers["Bản đồ nền TPHCM"]);
+            optionsDiv.remove();
+            mapOptionsVisible = false;
+        });
+
+        document.getElementById('tphcmMap').addEventListener('click', function() {
+            baselayers["Bản đồ nền TPHCM"].addTo(map);
+            map.removeLayer(baselayers.OpenStreetMap);
+            optionsDiv.remove();
+            mapOptionsVisible = false;
+        });
+    }
+});
+
+document.getElementById('toggleMap').addEventListener('mouseout', function() {
+  if (mapOptionsVisible) {
+      mouseOutTimeout = setTimeout(function() {
+          var optionsDiv = document.querySelector('.map-options');
+          if (optionsDiv) {
+              optionsDiv.remove();
+              mapOptionsVisible = false;
+          }
+      }, 5000);
+  }
+})
 
